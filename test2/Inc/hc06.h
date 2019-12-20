@@ -8,6 +8,7 @@
 #ifndef HC06_H_
 #define HC06_H_
 
-void BT_receive();
+void BT_store(int name_add, int number_add, int entries, uint8_t* data);
+void clear_eeprom();
 
 #endif /* HC06_H_ */

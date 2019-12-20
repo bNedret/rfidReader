@@ -1,7 +1,8 @@
-Src/main.o: ../Src/main.c D:/NEDRET/test2/test2/Inc/main.h \
+Src/lcd_messages.o: ../Src/lcd_messages.c \
+ D:/NEDRET/test2/test2/Inc/lcd_messages.h \
+ D:/NEDRET/test2/test2/Inc/main.h \
  D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  D:/NEDRET/test2/test2/Inc/stm32f1xx_hal_conf.h \
- D:/NEDRET/test2/test2/Inc/main.h \
  D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
  D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h \
  D:/NEDRET/test2/test2/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h \
@@ -25,21 +26,16 @@ Src/main.o: ../Src/main.c D:/NEDRET/test2/test2/Inc/main.h \
  D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h \
  D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h \
  D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h \
- D:/NEDRET/test2/test2/Inc/dma.h D:/NEDRET/test2/test2/Inc/i2c.h \
- D:/NEDRET/test2/test2/Inc/usart.h D:/NEDRET/test2/test2/Inc/usb.h \
- D:/NEDRET/test2/test2/Inc/gpio.h D:/NEDRET/test2/test2/Inc/buttons.h \
- D:/NEDRET/test2/test2/Inc/data_separate.h \
- D:/NEDRET/test2/test2/Inc/hc06.h D:/NEDRET/test2/test2/Inc/mode.h \
- D:/NEDRET/test2/test2/Inc/lcd_messages.h \
- D:/NEDRET/test2/test2/Inc/i2c-lcd.h
+ D:/NEDRET/test2/test2/Inc/i2c-lcd.h \
+ D:/NEDRET/test2/test2/Inc/data_separate.h
+
+D:/NEDRET/test2/test2/Inc/lcd_messages.h:
 
 D:/NEDRET/test2/test2/Inc/main.h:
 
 D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 
 D:/NEDRET/test2/test2/Inc/stm32f1xx_hal_conf.h:
-
-D:/NEDRET/test2/test2/Inc/main.h:
 
 D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h:
 
@@ -87,24 +83,6 @@ D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h:
 
 D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h:
 
-D:/NEDRET/test2/test2/Inc/dma.h:
-
-D:/NEDRET/test2/test2/Inc/i2c.h:
-
-D:/NEDRET/test2/test2/Inc/usart.h:
-
-D:/NEDRET/test2/test2/Inc/usb.h:
-
-D:/NEDRET/test2/test2/Inc/gpio.h:
-
-D:/NEDRET/test2/test2/Inc/buttons.h:
+D:/NEDRET/test2/test2/Inc/i2c-lcd.h:
 
 D:/NEDRET/test2/test2/Inc/data_separate.h:
-
-D:/NEDRET/test2/test2/Inc/hc06.h:
-
-D:/NEDRET/test2/test2/Inc/mode.h:
-
-D:/NEDRET/test2/test2/Inc/lcd_messages.h:
-
-D:/NEDRET/test2/test2/Inc/i2c-lcd.h:

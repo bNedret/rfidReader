@@ -5,12 +5,14 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Src/buttons.c \
+../Src/data_separate.c \
 ../Src/dma.c \
 ../Src/eeprom24xx.c \
 ../Src/gpio.c \
 ../Src/hc06.c \
 ../Src/i2c-lcd.c \
 ../Src/i2c.c \
+../Src/lcd_messages.c \
 ../Src/main.c \
 ../Src/mode.c \
 ../Src/stm32f1xx_hal_msp.c \
@@ -21,12 +23,14 @@ C_SRCS += \
 
 OBJS += \
 ./Src/buttons.o \
+./Src/data_separate.o \
 ./Src/dma.o \
 ./Src/eeprom24xx.o \
 ./Src/gpio.o \
 ./Src/hc06.o \
 ./Src/i2c-lcd.o \
 ./Src/i2c.o \
+./Src/lcd_messages.o \
 ./Src/main.o \
 ./Src/mode.o \
 ./Src/stm32f1xx_hal_msp.o \
@@ -37,12 +41,14 @@ OBJS += \
 
 C_DEPS += \
 ./Src/buttons.d \
+./Src/data_separate.d \
 ./Src/dma.d \
 ./Src/eeprom24xx.d \
 ./Src/gpio.d \
 ./Src/hc06.d \
 ./Src/i2c-lcd.d \
 ./Src/i2c.d \
+./Src/lcd_messages.d \
 ./Src/main.d \
 ./Src/mode.d \
 ./Src/stm32f1xx_hal_msp.d \

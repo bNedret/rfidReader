@@ -25,7 +25,12 @@ Src/mode.o: ../Src/mode.c \
  D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h \
  D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h \
  D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h \
- D:/NEDRET/test2/test2/Inc/mode.h
+ D:/NEDRET/test2/test2/Inc/mode.h D:/NEDRET/test2/test2/Inc/eeprom24xx.h \
+ D:/NEDRET/test2/test2/Inc/EEPROM24xxConfig.h \
+ D:/NEDRET/test2/test2/Inc/lcd_messages.h \
+ D:/NEDRET/test2/test2/Inc/data_separate.h \
+ D:/NEDRET/test2/test2/Inc/buttons.h D:/NEDRET/test2/test2/Inc/hc06.h \
+ D:/NEDRET/test2/test2/Inc/usart.h
 
 D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 
@@ -80,3 +85,17 @@ D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h:
 D:/NEDRET/test2/test2/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h:
 
 D:/NEDRET/test2/test2/Inc/mode.h:
+
+D:/NEDRET/test2/test2/Inc/eeprom24xx.h:
+
+D:/NEDRET/test2/test2/Inc/EEPROM24xxConfig.h:
+
+D:/NEDRET/test2/test2/Inc/lcd_messages.h:
+
+D:/NEDRET/test2/test2/Inc/data_separate.h:
+
+D:/NEDRET/test2/test2/Inc/buttons.h:
+
+D:/NEDRET/test2/test2/Inc/hc06.h:
+
+D:/NEDRET/test2/test2/Inc/usart.h:

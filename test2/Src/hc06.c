@@ -4,34 +4,39 @@
  *  Created on: 11. dec. 2019.
  *      Author: Administrator
  */
-#include "hc06.h"
-#include "mode.h"
-#include "usart.h"
+
 #include "stm32f1xx_hal.h"
-#include "stm32f1xx.h"
+#include "data_separate.h"
+#include "eeprom24xx.h"
+#include "mode.h"
 
-void BT_receive(add){
-	Struct result;
-	uint8_t del[BT_DATA] = "";
-	uint8_t receive_data_buffer[BT_DATA];
-	int name_add, number_add;
-	name_add = add * DATA_LENGTH;
-	number_add = NUMBER_STARTADD + name_add;
-	if (add <= NS_ENDADD && HAL_UART_GetState() == HAL_UART_STATE_READY){
-		HAL_UART_Receive(&huart3, receive_data_buffer, BT_DATA, 1000);
+/*Store data received from BT
+ * int name_ad: First free address for storing name and surname
+ * int number_ad: First free address for storing number
+ * int entries: Number of entries
+ * uint8_t* data: Pointer to data received through BT
+ * */
+void BT_store(int name_ad, int number_ad,int entries, uint8_t* data){
+	Struct result1;
+	int entries_number = entries; //number of entries
+	uint8_t del[BT_DATA]= "";
+	uint8_t entry_data[] = "";
+	result1 = NS_number_separation(data); //sepparate string received from BT
+	EEPROM24XX_Save(name_ad, result1.NS_pointer, DATA_LENGTH); //Store name_surname on EEPROM
+	EEPROM24XX_Save(number_ad, result1.number_pointer, DATA_LENGTH); //Store number on EEPROM
+	entries_number++; //Increase number of entries
+	itoa(entries_number, entry_data, 10); //convert number of entries from int to string
+	EEPROM24XX_Save(NO_ENTRIESADD, entry_data, DATA_LENGTH); //store number of entries
+	successfully_added_lcd(); //message display
+	memcpy(data, del, strlen(data)); //clear data buffer
 
-		if(strcmp(receive_data_buffer, "") != 0){
-			result = NS_number_separation(receive_data_buffer);
-			EEPROM24XX_Load(add, result.NS_pointer, DATA_LENGTH);
-			EEPROM24XX_Load(add, result.number_pointer, DATA_LENGTH);
-			name_add = name_add + DATA_LENGTH;
-			number_add = number_add + DATA_LENGTH;
-			entries_number++;
-			EEPROM24XX_Save(NO_ENTRIESADD, entries_number, 2);
-			successfully_added_lcd();
-			memcpy(receive_data_buffer, del, BT_DATA);
-		}
+}
+
+//Delete all data from EEPROM
+void clear_eeprom(){
+	uint8_t del=0xff;
+	for(int i = 0; i <= NO_ENTRIESADD; i++){
+		EEPROM24XX_Save(i, del, DATA_LENGTH);
 	}
-
 }
 

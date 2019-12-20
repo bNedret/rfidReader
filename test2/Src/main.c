@@ -44,7 +44,11 @@
 #include "usart.h"
 #include "usb.h"
 #include "gpio.h"
-
+#include "buttons.h"
+#include "data_separate.h"
+#include "hc06.h"
+#include "mode.h"
+#include "lcd_messages.h"
 /* USER CODE BEGIN Includes */
 #include "i2c-lcd.h"
 #include "stdbool.h"
@@ -77,22 +81,8 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	uint8_t		WriteData[12]="word three";
-	uint8_t		name[12];
-	uint8_t		surname[12];
-	uint8_t recive[BT_RECEIVE];
-	uint8_t del[BT_RECEIVE]= "";
-	uint8_t send[2] = "AT";
-	uint8_t dellim[] = " ";
-	uint8_t del2 = 0xff;
-	uint8_t * ptr1;
-	uint8_t * ptr2;
-	int	nameadd = 0;
-	int surnameadd = 64;
-	//int	raddMax = 32;
-	//int raddMin = -1;
-	int startadd = 48;
-  /* USER CODE END 1 */
+
+	/* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
 
@@ -118,35 +108,27 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USB_PCD_Init();
   MX_USART3_UART_Init();
+
   /* USER CODE BEGIN 2 */
   HAL_Delay(1000);
   lcd_init();
   lcd_send_string("SyStEm sTaRtInG");
-  HAL_Delay(5000);
+  HAL_Delay(2000);
   lcd_send_cmd (0x01);
-
   HAL_Delay(100);
+
   while(EEPROM24XX_IsConnected()==false)
   	{
   		HAL_Delay(100);
   	}
+  //clear_eeprom();
 
-  	//EEPROM24XX_Save(32,WriteData,strlen(WriteData));
-  	EEPROM24XX_Load(nameadd,name,strlen(WriteData));
-  	EEPROM24XX_Load(surnameadd,surname,strlen(WriteData));
-  	HAL_Delay(100);
-  	lcd_send_cmd (0x80);  // goto 1,1
-  	lcd_send_string(name);
-  	lcd_send_cmd (0xc0);
-  	lcd_send_string(surname);
-  	HAL_Delay (2000);  // wait for 2 sec
-
-  	HAL_Delay (1000);
-
-  /* USER CODE END 2 */
+  /* USER CODE END 2
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+  //Initialize EEPROM
   while (1)
   {
 	  if(HAL_GPIO_ReadPin(MODE_GPIO_Port, MODE_Pin) == GPIO_PIN_SET){
@@ -155,83 +137,7 @@ int main(void)
 	  else{
 		  working_mode();
 	  }
-
-	  //Reading data from bluetooth
-	  /*HAL_UART_Receive(&huart3, &recive, BT_RECEIVE, 1000);
-	  if(strcmp(recive, "") != 0){
-
-		  ptr1 =strtok(recive, dellim);
-		  ptr2 = strtok(NULL, dellim);
-		  EEPROM24XX_Save(nameadd,ptr1,strlen(ptr1));
-		  EEPROM24XX_Save(surnameadd,ptr2,strlen(ptr2));
-		  nameadd = nameadd +16;
-		  surnameadd = surnameadd +16;
-		  lcd_send_cmd (0x80);  // goto 1,1
-		  lcd_send_string(ptr1);
-		  lcd_send_cmd (0xc0);
-		  lcd_send_string(ptr2);
-		  HAL_Delay (2000);
-		  lcd_send_cmd(0x01);
-		  memcpy(recive, del, strlen(recive));
-	  }*/
-
-	  /*if (recive == '1'){
-		  HAL_GPIO_WritePin(EXLED_GPIO_Port, EXLED_Pin, GPIO_PIN_SET);
-
-	  }
-	  else if (recive == '0'){
-		  HAL_GPIO_WritePin(EXLED_GPIO_Port, EXLED_Pin, GPIO_PIN_RESET);
-
-	  }*/
-
-	  // Reading pin states: UP, DOWN and CALL
-	  /*if (HAL_GPIO_ReadPin(GPIOA, BUTTON_UP_PIN_Pin) == GPIO_PIN_RESET){
-		  HAL_GPIO_TogglePin(GPIOC, LED_PIN_Pin);
-		  nameadd = nameadd + 16;
-		  surnameadd = surnameadd + 16;
-		  if(nameadd > 64){
-			  nameadd = 0;
-			  surnameadd = 64;
-		  }
-		  lcd_send_cmd (0x01);
-		  EEPROM24XX_Load(nameadd,name,strlen(WriteData));
-		  EEPROM24XX_Load(surnameadd,surname,strlen(WriteData));
-		  HAL_Delay(100);
-		  lcd_send_cmd (0x80);  // goto 1,1
-		  lcd_send_string(name);
-		  lcd_send_cmd (0xc0);
-		  lcd_send_string(surname);
-		  HAL_Delay (2000);  // wait for 2 sec
-		    // clear the display
-		  HAL_Delay (1000);
-
-	  }
-	  else if (HAL_GPIO_ReadPin(GPIOA, BUTTON_DOWN_PIN_Pin) == GPIO_PIN_RESET){
-		  HAL_GPIO_TogglePin(GPIOC, LED_PIN_Pin);
-		  nameadd = nameadd - 16;
-		  surnameadd = surnameadd - 16;
-		  if(nameadd < -1){
-			  nameadd = 64;
-			  surnameadd = 64*2;
-		  }
-		  lcd_send_cmd (0x01);
-		  EEPROM24XX_Load(nameadd,name,strlen(WriteData));
-		  EEPROM24XX_Load(surnameadd,surname,strlen(WriteData));
-		  HAL_Delay(100);
-		  lcd_send_cmd (0x80);  // goto 1,1
-		  lcd_send_string(name);
-		  lcd_send_cmd (0xc0);
-		  lcd_send_string(surname);
-		  HAL_Delay (2000);  // wait for 2 sec
-		  //lcd_send_cmd (0x01);  // clear the display
-		  HAL_Delay (1000);
-
-	  }*/
-
-	  /*for (int i = 0; i < 200; i++){
-		  EEPROM24XX_Save(i, del2, strlen(del2));
-	  }*/
-
+	  //successfully_added_lcd();
 
   /* USER CODE END WHILE */
 

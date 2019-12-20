@@ -59,7 +59,7 @@
 #define BUTTON_CALL_PIN_GPIO_Port GPIOA
 #define EXLED_Pin GPIO_PIN_7
 #define EXLED_GPIO_Port GPIOA
-#define MODE_Pin GPIO_PIN_6
+#define MODE_Pin GPIO_PIN_5
 #define MODE_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
