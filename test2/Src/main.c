@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * COPYRIGHT(c) 2019 STMicroelectronics
+  * COPYRIGHT(c) 2020 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -44,11 +44,7 @@
 #include "usart.h"
 #include "usb.h"
 #include "gpio.h"
-#include "buttons.h"
-#include "data_separate.h"
-#include "hc06.h"
 #include "mode.h"
-#include "lcd_messages.h"
 /* USER CODE BEGIN Includes */
 #include "i2c-lcd.h"
 #include "stdbool.h"
@@ -58,7 +54,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-#define BT_RECEIVE 32
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -70,7 +66,8 @@ void SystemClock_Config(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-
+uint8_t GSM_DATA[] = "AT\r";
+uint8_t receive_data[DATA_LENGTH]="";
 /* USER CODE END 0 */
 
 /**
@@ -82,7 +79,8 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
-	/* USER CODE END 1 */
+
+  /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
 
@@ -108,7 +106,6 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USB_PCD_Init();
   MX_USART3_UART_Init();
-
   /* USER CODE BEGIN 2 */
   HAL_Delay(1000);
   lcd_init();
@@ -121,9 +118,11 @@ int main(void)
   	{
   		HAL_Delay(100);
   	}
-  //clear_eeprom();
 
-  /* USER CODE END 2
+  //HAL_UART_Transmit(&huart3, GSM_DATA, strlen(GSM_DATA), 1000);
+  //clear_eeprom();
+  //EEPROM24XX_Load(NUMBER_STARTADD+48, data, DATA_LENGTH);
+  /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -131,12 +130,27 @@ int main(void)
   //Initialize EEPROM
   while (1)
   {
-	  if(HAL_GPIO_ReadPin(MODE_GPIO_Port, MODE_Pin) == GPIO_PIN_SET){
+
+	  HAL_UART_Transmit(&huart3, GSM_DATA, strlen(GSM_DATA), 1000);
+	  HAL_UART_Receive(&huart3, receive_data, DATA_LENGTH, 5000);
+	  //HAL_UART_Transmit_IT(&huart3, GSM_DATA, strlen(GSM_DATA));
+	  //HAL_UART_Receive_IT(&huart3, receive_data, DATA_LENGTH);
+	  lcd_name_surname("test", receive_data);
+	  HAL_Delay(2000);
+	  lcd_clear();
+	 /*if(HAL_GPIO_ReadPin(MODE_GPIO_Port, MODE_Pin) == GPIO_PIN_SET){
 		  configuration_mode();
 	  }
 	  else{
 		  working_mode();
-	  }
+	  }*/
+	  /*
+	  HAL_UART_Transmit(&huart3, check_BT, strlen(check_BT), 100);
+	  HAL_UART_Receive(&huart3, data, strlen(data), 100);
+	  lcd_name_surname("test", "thfth");
+	  HAL_Delay(100);*/
+	  //lcd_name_surname("test", data);
+
 	  //successfully_added_lcd();
 
   /* USER CODE END WHILE */
@@ -207,7 +221,12 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+	__NOP();
+}
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
+	__NOP();
+}
 /* USER CODE END 4 */
 
 /**

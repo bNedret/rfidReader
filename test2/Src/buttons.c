@@ -19,15 +19,15 @@ uint8_t data[DATA_LENGTH];
  * int entries_number: number of entries
  * */
 int button_up(int address, int entries_number){
-	int name_surname_eadd = 0; //name_surname last data stored address
-	name_surname_eadd = entries_number * DATA_LENGTH - 16;
-	if(address > name_surname_eadd){ //check if address exceed set number of entries
-		address = NS_STARTADD; //go to starting address
+	address = address + 16;
+	int name_surname_eadd = entries_number * DATA_LENGTH - 16;
+	if(address > name_surname_eadd){
+		address = NS_STARTADD;
 	}
 	EEPROM24XX_Load(address, data, DATA_LENGTH);
-	result = name_surname_separation(data);
-	name_surname_lcd(result.name_pointer, result.surname_pointer);
-	return address + DATA_LENGTH;
+	result = separation_name_surname(data);
+	lcd_name_surname(result.name_pointer, result.surname_pointer);
+	return address;
 }
 
 /* Load previous entry from EEPROM
@@ -35,17 +35,18 @@ int button_up(int address, int entries_number){
  * int entries_number: number of entries
  * */
 int button_down(int address, int entries_number){
-	int name_surname_eadd = 0; //name_surname last data stored address
-	name_surname_eadd = entries_number * DATA_LENGTH -16;
-	if(address < NS_STARTADD){ //check if address subceed starting address
-		address = name_surname_eadd; //go to last address
+	address = address - 16;
+	int name_surname_eadd = entries_number * DATA_LENGTH -16;
+	if(address < NS_STARTADD){
+		address = name_surname_eadd;
 	}
 	EEPROM24XX_Load(address, data, DATA_LENGTH);
-	result = name_surname_separation(data);
-	name_surname_lcd(result.name_pointer, result.surname_pointer);
-	return address - DATA_LENGTH;
+	result = separation_name_surname(data);
+	lcd_name_surname(result.name_pointer, result.surname_pointer);
+	return address;
 }
 
-void button_call(){
-
+void button_call(int address){
+	EEPROM24XX_Load(NUMBER_STARTADD+address, data, DATA_LENGTH);
+	lcd_name_surname("Number is:", data);
 }

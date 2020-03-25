@@ -10,6 +10,6 @@
 
 int button_up(int address, int entries_number);
 int button_down(int address, int entries_number);
-void button_call();
+void button_call(int address);
 
 #endif /* BUTTONS_H_ */

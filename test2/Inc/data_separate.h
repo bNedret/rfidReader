@@ -19,10 +19,10 @@ struct string_separate{
 };
 typedef struct string_separate Struct;
 
-uint32_t configuration_mode_init();
-uint32_t working_mode_init();
+uint32_t init_configuration_mode();
+uint32_t init_working_mode();
 int center_word(uint8_t* word1);
-Struct NS_number_separation(uint8_t* data);
-Struct name_surname_separation(uint8_t* data);
+Struct separation_NS_number(uint8_t* data);
+Struct separation_name_surname(uint8_t* data);
 
 #endif /* DATA_SEPARATE_H_ */

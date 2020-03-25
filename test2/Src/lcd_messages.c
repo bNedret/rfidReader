@@ -8,8 +8,7 @@
 #include "i2c-lcd.h"
 #include "data_separate.h"
 
-//Print on LCD after configuration mode is enterd
-void configuration_mode_lcd(){
+void lcd_configuration_mode(){
 	lcd_send_cmd(0x01);
 	HAL_Delay(10);
 	lcd_send_cmd (0x88 - strlen("Configuration")/2);  // goto 1,1
@@ -19,8 +18,7 @@ void configuration_mode_lcd(){
 	HAL_Delay (2000);
 }
 
-//Print on LCD after data is stored on EEPROM
-void successfully_added_lcd(){
+void lcd_successfully_added(){
 	lcd_send_cmd(0x01);
 	HAL_Delay(10);
 	lcd_send_cmd(0x88 - strlen("successfully")/2);
@@ -28,11 +26,11 @@ void successfully_added_lcd(){
 	lcd_send_cmd(0xc8 - strlen("added")/2);
 	lcd_send_string("added");
 	HAL_Delay(2000);
-	configuration_mode_lcd();
+	lcd_configuration_mode();
 }
 
 
-void max_limit_lcd(){
+void lcd_max_limit(){
 	lcd_send_cmd(0x01);
 	HAL_Delay(10);
 	lcd_send_cmd(0x80);
@@ -41,8 +39,7 @@ void max_limit_lcd(){
 	lcd_send_string("REACHED");
 }
 
-//Print on LCD name and surname loaded from EEPROM
-void name_surname_lcd(uint8_t* name, uint8_t* surname){
+void lcd_name_surname(uint8_t* name, uint8_t* surname){
 	int first, second = 0;
 	first = center_word(name);
 	second = center_word(surname);
@@ -56,7 +53,7 @@ void name_surname_lcd(uint8_t* name, uint8_t* surname){
 
 }
 
-void eeprom_cleared(){
+void lcd_eeprom_cleared(){
 	lcd_send_cmd(0x01);
 	HAL_Delay(10);
 	lcd_send_cmd(0x80);
@@ -64,11 +61,10 @@ void eeprom_cleared(){
 	lcd_send_cmd(0xc0);
 	lcd_send_string("Cleared");
 	HAL_Delay(2000);
-	configuration_mode_lcd();
+	lcd_configuration_mode();
 }
 
-//Print on LCD when EEPROM is empty
-void no_entries(){
+void lcd_no_entries(){
 	lcd_send_cmd(0x01);
 	HAL_Delay(10);
 	lcd_send_cmd(0x88 - strlen("no")/2);
@@ -76,5 +72,9 @@ void no_entries(){
 	lcd_send_cmd(0xc8 - strlen("entries")/2);
 	lcd_send_string("Entries");
 	HAL_Delay(2000);
+}
+
+void lcd_clear(){
+	lcd_send_cmd(0x01);
 }
 
